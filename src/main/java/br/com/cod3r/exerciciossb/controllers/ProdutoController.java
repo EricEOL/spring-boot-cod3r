@@ -42,6 +42,11 @@ public class ProdutoController {
 		return produto;
 	}
 
+	@GetMapping("/nome/{parteNome}")
+	public Iterable<Produto> obterProdutosPorNome(@PathVariable String parteNome) {
+		return produtoRepository.findByNomeContainingIgnoreCase(parteNome);
+	}
+
 	/*
 	@PutMapping
 	public Produto alterarProduto(@Valid Produto produto) {
