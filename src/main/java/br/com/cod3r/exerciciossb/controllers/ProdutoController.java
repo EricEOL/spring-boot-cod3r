@@ -1,6 +1,8 @@
 package br.com.cod3r.exerciciossb.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.cod3r.exerciciossb.model.entities.Produto;
@@ -25,7 +27,13 @@ public class ProdutoController {
 
 	@GetMapping
 	public Iterable<Produto> obterProdutos() {
-		 return produtoRepository.findAll();
+		return produtoRepository.findAll();
+	}
+
+	@GetMapping("/pagina/{numeroDaPagina}")
+	public Iterable<Produto> obterProdutosPorPagina(@PathVariable int numeroDaPagina) {
+		Pageable page = PageRequest.of(numeroDaPagina, 2);
+		return produtoRepository.findAll(page);
 	}
 
 	@GetMapping("/{id}")
